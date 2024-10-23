@@ -1,0 +1,21 @@
+{"time":"2024-09-25T20:03:02.2169497+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T20:03:02.2169497+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_200302-kpswl4a6\\logs\\debug-core.log"}
+{"time":"2024-09-25T20:03:02.2175362+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T20:03:02.2175362+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_200302-kpswl4a6\\logs\\debug-core.log"}
+{"time":"2024-09-25T20:03:02.2344344+08:00","level":"INFO","msg":"created new stream","id":"kpswl4a6"}
+{"time":"2024-09-25T20:03:02.2344344+08:00","level":"INFO","msg":"stream: started","id":"kpswl4a6"}
+{"time":"2024-09-25T20:03:02.2344344+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:03:02.2344344+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:03:02.2344344+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:03:03.1847245+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T20:03:03.1884141+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T20:05:03.2341388+08:00","level":"INFO","msg":"stream: closing","id":"kpswl4a6"}
+{"time":"2024-09-25T20:05:03.2341388+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T20:05:03.2341388+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T20:05:03.6536725+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T20:05:03.6536725+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T20:05:03.6536725+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T20:05:05.9738015+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:05:05.9738739+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:05:05.9738739+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"kpswl4a6"}}
+{"time":"2024-09-25T20:05:05.9738739+08:00","level":"INFO","msg":"stream: closed","id":"kpswl4a6"}

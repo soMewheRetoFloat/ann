@@ -1,0 +1,15 @@
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Current SDK version is 0.18.1
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Configure stats pid to 38848
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Loading settings from C:\Users\Fl0at9973\.config\wandb\settings
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Loading settings from D:\involuntary\works\classes\ANN\HW1\codes\wandb\settings
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Loading settings from environment variables: {}
+2024-09-25 19:34:29,174 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Inferring run settings from compute environment: {'program_relpath': 'run_mlp.py', 'program_abspath': 'D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\run_mlp.py', 'program': 'D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\run_mlp.py'}
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_setup.py:_flush():77] Applying login settings: {}
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_init.py:_log_setup():532] Logging user logs to D:\involuntary\works\classes\ANN\HW1\codes\wandb\run-20240925_193429-w42xyynb\logs\debug.log
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_init.py:_log_setup():533] Logging internal logs to D:\involuntary\works\classes\ANN\HW1\codes\wandb\run-20240925_193429-w42xyynb\logs\debug-internal.log
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_init.py:init():616] calling init triggers
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_init.py:init():623] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.001, 'weight_decay': 1e-05, 'momentum': 0.9, 'batch_size': 100, 'max_epoch': 100, 'disp_freq': 50, 'test_epoch': 1}
+2024-09-25 19:34:29,175 INFO    MainThread:38848 [wandb_init.py:init():661] wandb.init() called when a run is still active
+2024-09-25 19:34:29,496 WARNING MsgRouterThr:38848 [router.py:message_loop():77] message_loop has been closed

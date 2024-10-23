@@ -1,0 +1,7 @@
+Namespace(learning_rate=0.001, weight_decay=1e-05, momentum=0.9, batch_size=100, max_epoch=100, disp_freq=50, test_epoch=1)
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 80, in <module>
+    processor(model, loss, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 62, in processor
+    print(int(config['max_epoch']))
+TypeError: 'Namespace' object is not subscriptable

@@ -1,0 +1,259 @@
+########################
+# Additional Files
+########################
+# .DS_Store
+# cifar-10_data
+# train
+# train_net.py
+# wandb
+# __pycache__
+# train.ipynb
+
+########################
+# Filled Code
+########################
+# ..\codes\mlp\model.py:1
+    def __init__(self, num_features, momentum=0.1, eps=1e-5, gamma=1, beta=0):
+        # f = W @ x + b
+        self.weight = Parameter(torch.empty(num_features))
+        self.bias = Parameter(torch.empty(num_features))
+        # !!! input of each mini_batch has mean of 0 and var of 1
+        self.register_buffer('running_mean', torch.zeros(num_features))
+        self.register_buffer('running_var', torch.ones(num_features))
+        init.ones_(self.weight)
+        init.zeros_(self.bias)
+        # store other params
+        self.momentum = momentum
+        self.norm_eps = eps
+
+    def forward(self, input: torch.Tensor):
+        # input of each mini_batch has mean of 0 and var of 1
+
+        # ref https://blog.csdn.net/chen_kl86/article/details/131389696
+
+        if self.training:
+            # [num_feature_map * height * width]
+            observed_mean = torch.mean(input, dim=0)
+            observed_var = torch.var(input, dim=0, unbiased=False)
+            self.running_mean = self.momentum * observed_mean + (1 - self.momentum) * self.running_mean
+            self.running_var = self.momentum * observed_var + (1 - self.momentum) * self.running_var
+        else:
+            observed_mean = self.running_mean
+            observed_var = self.running_var
+
+        # normalize
+        norm_initial = (input - observed_mean) / torch.sqrt(observed_var + self.norm_eps)
+        norm_extend = self.weight * norm_initial + self.bias
+
+        return norm_extend
+
+# ..\codes\mlp\model.py:2
+        assert 0 <= p <= 1
+
+        # weighted by a factor 1 - p
+        q = 1 - self.p
+
+        if self.training:
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            # 根据input的 shape 和 p 生成一个 mask, 1 出现的概率为 1 - p
+            mask = (torch.bernoulli(torch.full_like(input, q)).float().to(device))
+            input = input * mask / q
+
+# ..\codes\mlp\model.py:3
+
+        # from dataset
+        input_dim = 3072
+        hidden_dim = 1024
+        class_num = 10
+
+        # input - Linear – BN – ReLU – Dropout – Linear – loss
+        self.sequence_model = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            # BatchNorm1d(hidden_dim),
+            nn.ReLU(),
+            Dropout(drop_rate),
+            nn.Linear(hidden_dim, class_num)
+        )
+
+# ..\codes\mlp\model.py:4
+        logits = self.sequence_model(x)
+
+# ..\codes\cnn\model.py:1
+    def __init__(self, num_features, momentum=0.1, eps=1e-5, gamma=1, beta=0):
+        # gamma
+        self.weight = Parameter(torch.empty(num_features))
+        # beta
+        self.bias = Parameter(torch.empty(num_features))
+        # !!! input of each mini_batch has mean of 0 and var of 1
+        self.register_buffer('running_mean', torch.zeros(num_features))
+        self.register_buffer('running_var', torch.ones(num_features))
+        init.ones_(self.weight)
+        init.zeros_(self.bias)
+
+        # store other params
+        self.momentum = momentum
+        self.norm_eps = eps
+        if self.training:
+            # [num_feature_map * height * width]
+            observed_mean = torch.mean(input, dim=(0, 2, 3))
+            observed_var = torch.var(input, dim=(0, 2, 3), unbiased=False)
+            self.running_mean = self.momentum * observed_mean + (1 - self.momentum) * self.running_mean
+            self.running_var = self.momentum * observed_var + (1 - self.momentum) * self.running_var
+        else:
+            observed_mean = self.running_mean
+            observed_var = self.running_var
+
+        # normalize
+        # N, H, W squeezed by mean and var
+        N, C, H, W = input.shape
+        norm_initial = (input - observed_mean.view(1, C, 1, 1)) / torch.sqrt(observed_var.view(1, C, 1, 1) + self.norm_eps)
+        norm_extend = self.weight.view(1, C, 1, 1) * norm_initial + self.bias.view(1, C, 1, 1)
+
+        return norm_extend
+
+# ..\codes\cnn\model.py:2
+        assert 0 <= p <= 1
+        N, C, H, W = input.shape
+        q = 1 - self.p
+
+        if self.training:
+            # 2d 要直接 0 一整个channel 于是让单位变为channel
+            shape_tensor = torch.zeros(size=(N, C, 1, 1))
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            # 根据input的 shape 和 p 生成一个 mask, 1 出现的概率为 1 - p
+            mask = (torch.bernoulli(torch.full_like(shape_tensor, q)).float().to(device))
+            input = input * mask / q
+
+# ..\codes\cnn\model.py:3
+
+        # from dataset
+        in_channel = 3
+        hidden_channel = 16
+        out_channel = 32
+
+        hidden_dim = 1024
+        class_num = 10
+
+        # input – Conv – BN – ReLU – Dropout – MaxPool
+  		# – Conv – BN – ReLU – Dropout – MaxPool
+        # – Linear – loss
+        self.sequence_model = nn.Sequential(
+            ConvBlock(in_channel, hidden_channel, drop_rate, conv_block_seed),
+            ConvBlock(hidden_channel, out_channel, drop_rate, conv_block_seed),
+            # flat or gg
+            nn.Flatten(),
+            nn.Linear(32 * 8 * 8, class_num)
+        )
+
+# ..\codes\cnn\model.py:4
+        logits = self.sequence_model(x)
+
+
+########################
+# References
+########################
+
+########################
+# Other Modifications
+########################
+# _codes\mlp\main.py -> ..\codes\mlp\main.py
+# 6 + import wandb
+# 102 +     wandb.login()
+# 104 +     arg_dict = vars(args)
+# 105 +     wandb.init(
+# 106 +         project=f"cifar-10-mlp",
+# 107 +         config=arg_dict,
+# 108 +         name=f"extra mlp wto bn"
+# 109 +         # name=f"mlp with lr: {arg_dict['learning_rate']} and dp: {arg_dict['drop_rate']} and batch: {arg_dict['batch_size']}"
+# 110 +     )
+# 125 -
+# 134 +             test_acc, test_loss = valid_epoch(mlp_model, X_test, y_test)
+# 135 +             wandb.log({
+# 136 +                 "train_loss": train_loss,
+# 137 +                 "train_acc": train_acc,
+# 138 +                 "val_loss": val_loss,
+# 139 +                 "val_acc": val_acc,
+# 140 +     			"test_acc": test_acc,
+# 141 +                 "test_loss": test_loss
+# 142 +             })
+# 143 +
+# 129 -                 test_acc, test_loss = valid_epoch(mlp_model, X_test, y_test)
+# 147 +                 # test_acc, test_loss = valid_epoch(mlp_model, X_test, y_test)
+# 147 ?                ++
+# _codes\cnn\model.py -> ..\codes\cnn\model.py
+# 38 -
+# 74 +
+# 75 + class ConvBlock(nn.Module):
+# 76 +     def __init__(self, in_channel, out_channel, drop_rate=0.5, oper_seed=1):
+# 77 +         super(ConvBlock, self).__init__()
+# 78 +         operations = [
+# 79 +             nn.Conv2d
+# 80 +    			(in_channels=in_channel,
+# 81 +              out_channels=out_channel,
+# 82 +              kernel_size=3,
+# 83 +              stride=1,
+# 84 +              padding=1),
+# 85 +             BatchNorm2d(out_channel),
+# 86 +             nn.ReLU(),
+# 87 +             Dropout(drop_rate),
+# 88 +             nn.MaxPool2d(kernel_size=2, stride=2),
+# 89 +         ]
+# 90 +         ordered_operations = []
+# 91 +         if oper_seed == 1: # 正常顺序
+# 92 +             ordered_operations = operations
+# 93 +         elif oper_seed == 2: # 调换 relu 和 norm 的位置
+# 94 +             ordered_operations = [operations[0], operations[2], operations[1], operations[3], operations[4]]
+# 95 +         elif oper_seed == 3: # 去掉 dropout
+# 96 +             ordered_operations = [operations[0], operations[1], operations[2], operations[4]]
+# 97 +         elif oper_seed == 4: # 调换 maxpool 到最前面
+# 98 +             ordered_operations = [operations[4], operations[0], operations[1], operations[2], operations[3]]
+# 99 +         else:
+# 100 +             ordered_operations = operations
+# 101 +
+# 102 +         # [conv, bn, relu, dropout, maxpool]
+# 103 +         self.conv_block = nn.Sequential(*ordered_operations)
+# 104 +
+# 105 +     def forward(self, x):
+# 106 +         return self.conv_block(x)
+# 107 +
+# 40 -     def __init__(self, drop_rate=0.5):
+# 109 +     def __init__(self, drop_rate=0.5, conv_block_seed=1):
+# 109 ?                                     +++++++++++++++++++
+# _codes\cnn\main.py -> ..\codes\cnn\main.py
+# 6 + import wandb
+# 34 + parser.add_argument('--struct_order', type=int, default=1)
+# 48 +             if (i % 5 == 0): # 1/5 的图片被左右翻转
+# 49 +                 X_buffer[i] = X[k * chunk_size + shuffled_range[i]][:, :, ::-1]
+# 50 +             elif (i % 5 == 1): # 1/5 的图片被上下翻转
+# 51 +                 X_buffer[i] = X[k * chunk_size + shuffled_range[i]][:, ::-1, :]
+# 52 +             else:
+# 46 -             X_buffer[i] = X[k * chunk_size + shuffled_range[i]]
+# 53 +                 X_buffer[i] = X[k * chunk_size + shuffled_range[i]]
+# 53 ? ++++
+# 108 +     wandb.login()
+# 109 +
+# 110 +     arg_dict = vars(args)
+# 111 +     ms = arg_dict["struct_order"]
+# 112 +     wandb.init(
+# 113 +         project=f"cifar-10-cnn",
+# 114 +         config=arg_dict,
+# 115 +         name=f"extra cnn for pic turn"
+# 116 +         # name=f"cnn with lr: {arg_dict['learning_rate']} and dp: {arg_dict['drop_rate']} and batch: {arg_dict['batch_size']}"
+# 117 +     )
+# 108 -         cnn_model = Model(drop_rate=args.drop_rate)
+# 125 +         cnn_model = Model(drop_rate=args.drop_rate, conv_block_seed=ms)
+# 125 ?                                                   ++++++++++++++++++++
+# 142 +             test_acc, test_loss = valid_epoch(cnn_model, X_test, y_test)
+# 143 +
+# 144 +             wandb.log({
+# 145 +                 "train_loss": train_loss,
+# 146 +                 "train_acc": train_acc,
+# 147 +                 "val_loss": val_loss,
+# 148 +                 "val_acc": val_acc,
+# 149 +                 "test_acc": test_acc,
+# 150 +                 "test_loss": test_loss
+# 151 +             })
+# 129 -                 test_acc, test_loss = valid_epoch(cnn_model, X_test, y_test)
+# 156 +                 # test_acc, test_loss = valid_epoch(cnn_model, X_test, y_test)
+# 156 ?                ++
+

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 88, in <module>
+    model, loss = init(train_config, name_losses[0], name_activations[0])
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 64, in init
+    modelx.add(layer_func[activate_name](activate_name))
+KeyError: 'KLDiv'

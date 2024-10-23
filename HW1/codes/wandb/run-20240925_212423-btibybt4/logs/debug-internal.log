@@ -1,0 +1,21 @@
+{"time":"2024-09-25T21:24:23.0998883+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:24:23.0998883+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212423-btibybt4\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:24:23.101418+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:24:23.101418+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212423-btibybt4\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:24:23.1477747+08:00","level":"INFO","msg":"created new stream","id":"btibybt4"}
+{"time":"2024-09-25T21:24:23.1484238+08:00","level":"INFO","msg":"stream: started","id":"btibybt4"}
+{"time":"2024-09-25T21:24:23.1484238+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:24:23.1484238+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:24:23.1484238+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:24:24.1268886+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T21:24:24.1276411+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T21:25:08.3969802+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T21:25:08.3969802+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T21:25:09.2019338+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T21:25:09.2019338+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T21:25:09.2019338+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T21:25:32.6990525+08:00","level":"INFO","msg":"stream: closing","id":"btibybt4"}
+{"time":"2024-09-25T21:25:32.7121698+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:25:32.7132013+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:25:32.7132013+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"btibybt4"}}
+{"time":"2024-09-25T21:25:32.7132013+08:00","level":"INFO","msg":"stream: closed","id":"btibybt4"}

@@ -1,0 +1,21 @@
+{"time":"2024-09-25T21:28:22.3220544+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:28:22.3220544+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212822-kr5r13jt\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:28:22.3238419+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:28:22.3238419+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212822-kr5r13jt\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:28:22.3710914+08:00","level":"INFO","msg":"created new stream","id":"kr5r13jt"}
+{"time":"2024-09-25T21:28:22.3716862+08:00","level":"INFO","msg":"stream: started","id":"kr5r13jt"}
+{"time":"2024-09-25T21:28:22.3716862+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:28:22.3716862+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:28:22.3716862+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:28:23.3784043+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T21:28:23.3789873+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T21:29:10.1853115+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T21:29:10.1853115+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T21:29:10.9921893+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T21:29:10.9921893+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T21:29:10.9921893+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T21:29:14.591778+08:00","level":"INFO","msg":"stream: closing","id":"kr5r13jt"}
+{"time":"2024-09-25T21:29:14.591778+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:29:14.591778+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:29:14.591778+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"kr5r13jt"}}
+{"time":"2024-09-25T21:29:14.5921623+08:00","level":"INFO","msg":"stream: closed","id":"kr5r13jt"}

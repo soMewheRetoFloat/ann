@@ -1,0 +1,532 @@
+########################
+# Additional Files
+########################
+# data
+# README.txt
+# __pycache__
+# wandb
+
+########################
+# Filled Code
+########################
+# ..\codes\layers.py:1
+        """
+        u > 0, lamb * u -> lamb
+        u <= 0, lamb * alpha * (e^u - 1) -> lamb * alpha * e^u
+        """
+        self._saved_for_backward(input)
+        ret = np.where(input > 0,
+                       self.params["lambda"] * input,
+                       self.params["lambda"] * self.params["alpha"] * (np.exp(input) - 1))
+        return ret.copy()
+
+# ..\codes\layers.py:2
+        saved_input = self._saved_tensor
+        ret = (grad_output *
+               self.params["lambda"] *
+               np.where(saved_input > 0,
+                        1,
+                        self.params["alpha"] * np.exp(saved_input)))
+        return ret.copy()
+
+# ..\codes\layers.py:3
+        """
+        u <= -3 , 0 -> 0
+        u >= 3 u -> 1
+        otherwise (u * (u + 3)) / 6 -> (2u + 3) / 6
+        """
+        self._saved_for_backward(input)
+        conditions = [input <= -3, input >= 3, np.logical_and(input > -3, input < 3)]
+        choices = [0, input, input * (input + 3) / 6]
+        ret = np.select(conditions, choices)
+        return ret.copy()
+
+# ..\codes\layers.py:4
+        saved_input = self._saved_tensor
+        conditions = [saved_input <= -3, saved_input >= 3, np.logical_and(saved_input > -3, saved_input < 3)]
+        choices = [0, 1, (2 * saved_input + 3) / 6]
+        ret = grad_output * np.select(conditions, choices)
+        return ret.copy()
+
+# ..\codes\layers.py:5
+        self._saved_for_backward(input)
+        """
+        tanh = e - e^- / e + e^-
+        -> 1 - tanh^2
+        """
+
+        ret = np.tanh(input)
+        return ret.copy()
+
+# ..\codes\layers.py:6
+        saved_input = self._saved_tensor
+        ret = grad_output * (1 - np.tanh(saved_input) ** 2)
+        return ret.copy()
+
+# ..\codes\layers.py:7
+        self._saved_for_backward(input)
+        ret = input @ self.W + self.b
+        return ret.copy()
+
+# ..\codes\layers.py:8
+        """
+        X * W + b -> W = X^trans * grad
+        """
+        saved_input = self._saved_tensor
+        self.grad_W = saved_input.T @ grad_output
+        self.grad_b = np.sum(grad_output, axis=0, keepdims=True)
+
+        ret = grad_output @ self.W.T
+        return ret.copy()
+
+# ..\codes\loss.py:1
+
+        batch = input.shape[0]
+
+        input_softmax = softmax(input)
+        input_softmax = np.clip(input_softmax, 1e-9, 1.0)  # 避免 input_softmax 为零
+
+        # -inf 修正 否则会爆仓
+        ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+
+        kl_div = np.sum(target * ln_t_sub_h, axis=1, keepdims=True) / batch
+
+        return kl_div.copy()
+
+# ..\codes\loss.py:2
+
+        input_softmax = softmax(input)
+        ret = input_softmax - target
+        return ret.copy()
+
+# ..\codes\loss.py:3
+
+        batch = input.shape[0]
+
+        input_softmax = softmax(input)
+
+        # target = (batch, 10 = [...t_k])
+        # c-e = sum(t_k * log(h_k)) / batch_size
+        # (batch, 1)
+        cross_entropy = -np.sum(target * np.log(input_softmax), axis=1, keepdims=True) / batch
+
+        return cross_entropy.copy()
+
+# ..\codes\loss.py:4
+
+        input_softmax = softmax(input)
+        ret = input_softmax - target
+        return ret.copy()
+
+# ..\codes\loss.py:5
+
+        batch = input.shape[0]
+
+        # x_t^n
+        respective_x_tn = np.sum(input * target, axis=1, keepdims=True)
+
+        # mask if t_n == 1
+        mask = np.where(target == 0, 1, 0)
+
+        # hinge = max(0, x_k - x_t^n + delta)
+        hinge = np.maximum(0, input - respective_x_tn + self.margin) * mask
+
+        ret = np.sum(hinge, axis=1, keepdims=True) / batch
+
+        return ret.copy()
+
+# ..\codes\loss.py:6
+
+        # x_t^n
+        respective_x_tn = np.sum(input * target, axis=1, keepdims=True)
+
+        # whether grad exist
+        distance_exist = np.where(input - respective_x_tn + self.margin > 0, 1, 0)
+
+        hinge_grad = distance_exist * (1 - target)
+
+        # for correct labels, subtract, in encouragement of higher score
+        # suggestions from ChatGPT-4o
+
+        # prompt: <original code>,
+        # for current back propagation code, do you have some suggestions about the right class?
+
+        target_grad = -np.sum(hinge_grad, axis=1, keepdims=True) * target
+
+        ret = hinge_grad + target_grad
+
+        return ret.copy()
+
+# ..\codes\loss.py:7
+
+        # the same as cross_entropy from observation
+        batch = input.shape[0]
+
+        input_softmax = softmax(input)
+
+        cross_entropy = target * np.log(input_softmax)
+
+        # get classification focal correction
+        np_alpha = np.array(self.alpha)
+
+        suc_k = np_alpha * target + (1 - np_alpha) * (1 - target)
+
+        focal = cross_entropy * ((1 - input_softmax) ** self.gamma) * suc_k
+
+        ret = -np.sum(focal, axis=1, keepdims=True) / batch
+
+        return ret.copy()
+
+# ..\codes\loss.py:8
+
+        np_alpha = np.array(self.alpha)
+
+        input_softmax = softmax(input)
+
+        suc_k = np_alpha * target + (1 - np_alpha) * (1 - target)
+        d_gamma = self.gamma * (1 - input_softmax) ** (self.gamma - 1) * target * np.log(input_softmax)
+        d_log = -(1 - input_softmax) ** self.gamma * target * (1 / input_softmax)
+        d_out = suc_k * (d_gamma + d_log)
+
+        # d_in = softmax_jacobi shape = (batch, 10, 10)
+        batch, channel = input.shape[0], input.shape[1]
+
+        # get jacobi matrix
+        softmax_jacobi = np.zeros((batch, channel, channel))
+        for i in range(batch):
+            p = input_softmax[i].reshape(-1, 1)  # (channel, 1)
+            diag = np.diagflat(p)  # (channel, channel)
+            softmax_jacobi[i] = diag - (p @ p.T)
+
+        # d_out * d_in, d[i] = jacobi[i] @ d_out[i]
+        # (channel, channel) @ (channel, 1) in each batch
+        ret = np.matmul(softmax_jacobi, d_out[..., np.newaxis]).squeeze(-1)
+        return ret.copy()
+
+
+########################
+# References
+########################
+
+########################
+# Other Modifications
+########################
+# _codes\layers.py -> ..\codes\layers.py
+# 28 +         self.params = {
+# 29 +             "lambda": 1.0507,
+# 30 +             "alpha": 1.67326
+# 31 +         }
+# _codes\solve_net.py -> ..\codes\solve_net.py
+# 3 -
+# 3 + import wandb
+# 42 +             loss_value, acc_value = np.mean(loss_list), np.mean(acc_list)
+# 42 -             msg = '  Training iter %d, batch loss %.4f, batch acc %.4f' % (iter_counter, np.mean(loss_list), np.mean(acc_list))
+# 42 ?                                                                                          --------      ^^^^  --------     ^^^^
+# 43 +             # msg = '     Training iter %d, batch loss %.4f, batch acc %.4f' % (iter_counter, loss_value, acc_value)
+# 43 ?             ++       +++                                                                           ++ ^^      ++ ^^
+# 44 +             # LOG_INFO(msg)
+# 45 +             wandb.log({
+# 46 +                 "train_loss": loss_value,
+# 47 +                 "train_acc": acc_value,
+# 48 +             })
+# 49 +
+# 45 -             LOG_INFO(msg)
+# 48 - def test_net(model, loss, inputs, labels, batch_size):
+# 54 + def test_net(model, loss, inputs, labels, batch_size,):
+# 54 ?                                                     +
+# 66 +     loss_value, acc_value = np.mean(loss_list), np.mean(acc_list)
+# 60 -     msg = '    Testing, total mean loss %.5f, total acc %.5f' % (np.mean(loss_list), np.mean(acc_list))
+# 60 ?                                                                  --------      ^^^^  --------     ^^^^
+# 67 +     # msg = '     Testing, total mean loss %.5f, total acc %.5f' % (loss_value, acc_value)
+# 67 ?    ++        +                                                           ++ ^^      ++ ^^
+# 61 -     LOG_INFO(msg)
+# 68 +     # LOG_INFO(msg)
+# 68 ?    ++
+# 69 +     wandb.log({
+# 70 +         "test_loss": loss_value,
+# 71 +         "test_acc": acc_value,
+# 72 +     })
+# _codes\loss.py -> ..\codes\loss.py
+# 4 + # for debug
+# 5 + def print_line(inp):
+# 6 +     for i in range(inp.shape[0]):
+# 7 +         print(inp[i])
+# 8 +
+# 9 +
+# 10 + # for better code style
+# 11 + def softmax(input, axis=1):
+# 12 +     # 防爆 from https://blog.csdn.net/qq_39478403/article/details/116862070
+# 13 +     # max_predict = (batch, 10) -> (batch, 1)
+# 14 +     # get max value
+# 15 +     max_predict = np.max(input, axis=axis, keepdims=True)
+# 16 +
+# 17 +     # (batch, 10) exp
+# 18 +     input_exp = np.exp(input - max_predict)
+# 19 +
+# 20 +     # (batch, 1) sum
+# 21 +     input_exp_sum = np.sum(input_exp, axis=axis, keepdims=True)
+# 22 +
+# 23 +     # (batch, 10 = [...h_k])
+# 24 +     return input_exp / input_exp_sum
+# _codes\run_colab.ipynb -> ..\codes\run_colab.ipynb
+# 1 - {"cells":[{"cell_type":"markdown","metadata":{"id":"8W9h0JEFSZwH"},"source":["1. 挂载 Google Drive 目录"]},{"cell_type":"code","execution_count":null,"metadata":{"id":"8jRDUexEPkWm"},"outputs":[],"source":["from google.colab import drive\n","drive.mount('/content/drive/')"]},{"cell_type":"markdown","metadata":{"id":"OPAYd5chSlZm"},"source":["2. 进入 `HW1` 目录下"]},{"cell_type":"code","execution_count":null,"metadata":{"id":"b5pN0x6fQQHy"},"outputs":[],"source":["import os\n","os.chdir(\"/content/drive/My Drive/HW1\")"]},{"cell_type":"markdown","metadata":{"id":"mtKESjtLSstB"},"source":["3. 查看目录下文件"]},{"cell_type":"code","execution_count":null,"metadata":{"id":"dLpuTzwEQa4D"},"outputs":[],"source":["!ls"]},{"cell_type":"markdown","metadata":{"id":"fe9DO3ZpS3jI"},"source":["4. 运行作业程序"]},{"cell_type":"code","execution_count":null,"metadata":{"id":"d1zLKwgqSy-W"},"outputs":[],"source":["!python3 run_mlp.py"]}],"metadata":{"accelerator":"GPU","colab":{"provenance":[]},"kernelspec":{"display_name":"Python 3.6.5 32-bit","language":"python","name":"python3"},"language_info":{"name":"python","version":"3.6.5"},"vscode":{"interpreter":{"hash":"56d58471fa82f2e2d8acea901b8942cda978922ae697f1672349424f0307af68"}}},"nbformat":4,"nbformat_minor":0}
+# 1 + {
+# 2 +  "cells": [
+# 3 +   {
+# 4 +    "cell_type": "markdown",
+# 5 +    "metadata": {
+# 6 +     "id": "8W9h0JEFSZwH"
+# 7 +    },
+# 8 +    "source": [
+# 9 +     "1. 挂载 Google Drive 目录"
+# 10 +    ]
+# 11 +   },
+# 12 +   {
+# 13 +    "cell_type": "code",
+# 14 +    "metadata": {
+# 15 +     "id": "8jRDUexEPkWm",
+# 16 +     "ExecuteTime": {
+# 17 +      "end_time": "2024-09-25T12:45:59.604235Z",
+# 18 +      "start_time": "2024-09-25T12:45:59.586226Z"
+# 19 +     }
+# 20 +    },
+# 21 +    "source": [
+# 22 +     "from google.colab import drive\n",
+# 23 +     "drive.mount('/content/drive/')"
+# 24 +    ],
+# 25 +    "outputs": [
+# 26 +     {
+# 27 +      "ename": "ModuleNotFoundError",
+# 28 +      "evalue": "No module named 'google.colab'",
+# 29 +      "output_type": "error",
+# 30 +      "traceback": [
+# 31 +       "\u001B[1;31m---------------------------------------------------------------------------\u001B[0m",
+# 32 +       "\u001B[1;31mModuleNotFoundError\u001B[0m                       Traceback (most recent call last)",
+# 33 +       "Cell \u001B[1;32mIn[3], line 1\u001B[0m\n\u001B[1;32m----> 1\u001B[0m \u001B[38;5;28;01mfrom\u001B[39;00m \u001B[38;5;21;01mgoogle\u001B[39;00m\u001B[38;5;21;01m.\u001B[39;00m\u001B[38;5;21;01mcolab\u001B[39;00m \u001B[38;5;28;01mimport\u001B[39;00m drive\n\u001B[0;32m      2\u001B[0m drive\u001B[38;5;241m.\u001B[39mmount(\u001B[38;5;124m'\u001B[39m\u001B[38;5;124m/content/drive/\u001B[39m\u001B[38;5;124m'\u001B[39m)\n",
+# 34 +       "\u001B[1;31mModuleNotFoundError\u001B[0m: No module named 'google.colab'"
+# 35 +      ]
+# 36 +     }
+# 37 +    ],
+# 38 +    "execution_count": 3
+# 39 +   },
+# 40 +   {
+# 41 +    "cell_type": "markdown",
+# 42 +    "metadata": {
+# 43 +     "id": "OPAYd5chSlZm"
+# 44 +    },
+# 45 +    "source": [
+# 46 +     "2. 进入 `HW1` 目录下"
+# 47 +    ]
+# 48 +   },
+# 49 +   {
+# 50 +    "cell_type": "code",
+# 51 +    "metadata": {
+# 52 +     "id": "b5pN0x6fQQHy"
+# 53 +    },
+# 54 +    "source": [
+# 55 +     "import os\n",
+# 56 +     "os.chdir(\"/content/drive/My Drive/HW1\")"
+# 57 +    ],
+# 58 +    "outputs": [],
+# 59 +    "execution_count": null
+# 60 +   },
+# 61 +   {
+# 62 +    "cell_type": "markdown",
+# 63 +    "metadata": {
+# 64 +     "id": "mtKESjtLSstB"
+# 65 +    },
+# 66 +    "source": [
+# 67 +     "3. 查看目录下文件"
+# 68 +    ]
+# 69 +   },
+# 70 +   {
+# 71 +    "cell_type": "code",
+# 72 +    "metadata": {
+# 73 +     "id": "dLpuTzwEQa4D"
+# 74 +    },
+# 75 +    "source": [
+# 76 +     "!ls\n",
+# 77 +     "!pip install wandb\n",
+# 78 +     "!pip install tqdm"
+# 79 +    ],
+# 80 +    "outputs": [],
+# 81 +    "execution_count": null
+# 82 +   },
+# 83 +   {
+# 84 +    "metadata": {},
+# 85 +    "cell_type": "code",
+# 86 +    "outputs": [],
+# 87 +    "execution_count": null,
+# 88 +    "source": ""
+# 89 +   },
+# 90 +   {
+# 91 +    "cell_type": "markdown",
+# 92 +    "metadata": {
+# 93 +     "id": "fe9DO3ZpS3jI"
+# 94 +    },
+# 95 +    "source": [
+# 96 +     "4. 运行作业程序"
+# 97 +    ]
+# 98 +   },
+# 99 +   {
+# 100 +    "cell_type": "code",
+# 101 +    "metadata": {
+# 102 +     "id": "d1zLKwgqSy-W"
+# 103 +    },
+# 104 +    "source": [
+# 105 +     "!python3 run_mlp.py"
+# 106 +    ],
+# 107 +    "outputs": [],
+# 108 +    "execution_count": null
+# 109 +   }
+# 110 +  ],
+# 111 +  "metadata": {
+# 112 +   "accelerator": "GPU",
+# 113 +   "colab": {
+# 114 +    "provenance": []
+# 115 +   },
+# 116 +   "kernelspec": {
+# 117 +    "display_name": "Python 3.6.5 32-bit",
+# 118 +    "language": "python",
+# 119 +    "name": "python3"
+# 120 +   },
+# 121 +   "language_info": {
+# 122 +    "name": "python",
+# 123 +    "version": "3.6.5"
+# 124 +   },
+# 125 +   "vscode": {
+# 126 +    "interpreter": {
+# 127 +     "hash": "56d58471fa82f2e2d8acea901b8942cda978922ae697f1672349424f0307af68"
+# 128 +    }
+# 129 +   }
+# 130 +  },
+# 131 +  "nbformat": 4,
+# 132 +  "nbformat_minor": 0
+# 133 + }
+# _codes\run_mlp.py -> ..\codes\run_mlp.py
+# 1 + from typing import Dict, Type
+# 4 - from loss import KLDivLoss, SoftmaxCrossEntropyLoss, HingeLoss
+# 5 + from loss import KLDivLoss, SoftmaxCrossEntropyLoss, HingeLoss, FocalLoss
+# 5 ?                                                               +++++++++++
+# 8 + import wandb
+# 9 + from datetime import datetime
+# 10 + from tqdm import tqdm
+# 11 + from argparse import ArgumentParser
+# 8 -
+# 9 - train_data, test_data, train_label, test_label = load_mnist_2d('data')
+# 10 -
+# 11 - # Your model defintion here
+# 12 - # You should explore different model architecture
+# 13 - model = Network()
+# 14 - model.add(Linear('fc1', 784, 10, 0.01))
+# 15 -
+# 16 - loss = KLDivLoss(name='loss')
+# 24 - config = {
+# 25 -     'learning_rate': 0.0,
+# 26 -     'weight_decay': 0.0,
+# 27 -     'momentum': 0.0,
+# 28 -     'batch_size': 100,
+# 29 -     'max_epoch': 100,
+# 30 -     'disp_freq': 50,
+# 31 -     'test_epoch': 5
+# 20 + def attain_args():
+# 21 +     parser = ArgumentParser()
+# 22 +     parser.add_argument('--learning_rate', '-lr', type=float, default=1e-4, help='Learning rate for the optimizer')
+# 23 +     parser.add_argument('--weight_decay', "-wd", type=float, default=1e-5, help='Weight decay for regularization')
+# 24 +     parser.add_argument('--momentum', "-mo", type=float, default=0.9, help='Momentum for the optimizer')
+# 25 +     parser.add_argument('--batch_size', "-b", type=int, default=100, help='Batch size for training')
+# 26 +     parser.add_argument('--max_epoch', "-me", type=int, default=10, help='Maximum number of training epochs')
+# 27 +     parser.add_argument('--disp_freq', "-d", type=int, default=50, help='Frequency of displaying the training status')
+# 28 +     parser.add_argument('--test_epoch', "-te", type=int, default=1, help='Number of epochs between testing')
+# 29 +     args = parser.parse_args()
+# 30 +
+# 31 +     arg_dict = vars(args)
+# 32 +
+# 33 +     return arg_dict
+# 34 +
+# 35 +
+# 36 + def init(conf, activate_name, loss_name):
+# 37 +     if loss_name == "Focal":
+# 38 +         conf["learning_rate"] = 1e-2
+# 39 +     wandb.init(
+# 40 +         project=f"mnist_mlp_training",
+# 41 +         config=conf,
+# 42 +         group="function_change_tests",
+# 43 +         name=f"activation: {activate_name} and loss: {loss_name} for 50 epoch"
+# 44 +     )
+# 45 +
+# 46 +     # Your model defintion here
+# 47 +     # You should explore different model architecture
+# 48 +     modelx = Network()
+# 49 +     modelx.add(Linear('fc1', 784, 128, 0.01))
+# 50 +     modelx.add(layer_func[activate_name](activate_name))
+# 51 +     modelx.add(Linear('fc2', 128, 10, 0.01))
+# 52 +     lossx = loss_func[loss_name](name="loss")
+# 53 +
+# 54 +     return modelx, lossx
+# 55 +
+# 56 + def processor(mdl, los, train_data, test_data, train_label, test_label, config):
+# 57 +     # for epoch in tqdm(range(int(config['max_epoch'])), desc='Training'):
+# 58 +     for epoch in range(int(config['max_epoch'])):
+# 59 +         iteration = train_net(mdl, los, config, train_data, train_label, config['batch_size'], config['disp_freq'])
+# 60 +
+# 61 +         if epoch % config['test_epoch'] == 0:
+# 62 +             LOG_INFO('Testing @ %d epoch...' % epoch)
+# 63 +             test_net(mdl, los, test_data, test_label, config['batch_size'])
+# 64 +
+# 65 + layer_func = {
+# 66 +     "tanh": Tanh,
+# 67 +     "SeLu": Selu,
+# 68 +     "HardSwish": HardSwish,
+# 71 + loss_func = {
+# 72 +     "KLDiv": KLDivLoss,
+# 73 +     "CrossEntropy": SoftmaxCrossEntropyLoss,
+# 74 +     "Hinge": HingeLoss,
+# 75 +     "Focal": FocalLoss,
+# 76 + }
+# 78 + name_losses = ["KLDiv", "CrossEntropy", "Hinge", "Focal"]
+# 79 + name_activations = ["tanh", "SeLu", "HardSwish"]
+# 35 - for epoch in range(config['max_epoch']):
+# 36 -     LOG_INFO('Training @ %d epoch...' % (epoch))
+# 37 -     train_net(model, loss, config, train_data, train_label, config['batch_size'], config['disp_freq'])
+# 39 -     if epoch % config['test_epoch'] == 0:
+# 40 -         LOG_INFO('Testing @ %d epoch...' % (epoch))
+# 41 -         test_net(model, loss, test_data, test_label, config['batch_size'])
+# 81 + if __name__ == '__main__':
+# 82 +     # do argument parse
+# 83 +     wandb.login()
+# 84 +     train_config = attain_args()
+# 85 +     tr_data, te_data, tr_label, te_label = load_mnist_2d('data')
+# 86 +
+# 87 +     activate_name = "SeLu"
+# 88 +     loss_name = "Focal"
+# 89 +
+# 90 +     for i in range(12):
+# 91 +         activate_name = name_activations[i // 4]
+# 92 +
+# 93 +         loss_name = name_losses[i % 4]
+# 94 +
+# 95 +         # single model
+# 96 +         # activate_name = "tanh"
+# 97 +         # wandb.init(
+# 98 +         #     project=f"mnist_mlp_training",
+# 99 +         #     config=train_config,
+# 100 +         #     group="function_change_tests",
+# 101 +         #     name=f"activation: {activate_name} and loss: {loss_name} with double layer"
+# 102 +         # )
+# 103 +         # act_func = layer_func[activate_name](activate_name)
+# 104 +         # modelx = Network()
+# 105 +         # modelx.add(Linear('fc1', 784, 256, 0.01))
+# 106 +         # modelx.add(Tanh("selu1"))
+# 107 +         # modelx.add(Linear('fcx', 256, 128, 0.01))
+# 108 +         # modelx.add(Tanh("selu2"))
+# 109 +         # modelx.add(Linear('fc2', 128, 10, 0.01))
+# 110 +         # lossx = loss_func[loss_name](name=loss_name)
+# 111 +
+# 112 +         # multiple funcs and single layer
+# 113 +         modelx, lossx = init(train_config, activate_name, loss_name)
+# 114 +
+# 115 +
+# 116 +         processor(modelx, lossx, tr_data, te_data, tr_label, te_label, train_config)
+# 117 +         wandb.finish()
+

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 80, in <module>
+    processor(model, loss, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 62, in processor
+    print(int(config['max_epoch']))
+TypeError: 'Namespace' object is not subscriptable

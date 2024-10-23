@@ -1,0 +1,21 @@
+{"time":"2024-09-25T21:20:31.9542374+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:20:31.9542374+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212031-tjp9900v\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:20:31.9547481+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:20:31.9547481+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212031-tjp9900v\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:20:31.9691701+08:00","level":"INFO","msg":"created new stream","id":"tjp9900v"}
+{"time":"2024-09-25T21:20:31.9696927+08:00","level":"INFO","msg":"stream: started","id":"tjp9900v"}
+{"time":"2024-09-25T21:20:31.9696927+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:20:31.9696927+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:20:31.9696927+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:20:32.9690292+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T21:20:32.9708582+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T21:20:55.5338585+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T21:20:55.5338585+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T21:20:55.9422809+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T21:20:55.9422809+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T21:20:55.9422809+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T21:21:00.1227426+08:00","level":"INFO","msg":"stream: closing","id":"tjp9900v"}
+{"time":"2024-09-25T21:21:00.1227426+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:21:00.1232614+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:21:00.1232614+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"tjp9900v"}}
+{"time":"2024-09-25T21:21:00.1233383+08:00","level":"INFO","msg":"stream: closed","id":"tjp9900v"}

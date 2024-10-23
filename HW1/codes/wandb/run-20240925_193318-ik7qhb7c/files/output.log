@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 80, in <module>
+    processor(model, loss, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 63, in processor
+    for epoch in tqdm(range(config['max_epoch']), desc='Training'):
+TypeError: 'Namespace' object is not subscriptable

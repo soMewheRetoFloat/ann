@@ -1,0 +1,23 @@
+Training:   0%|                                                                                                           | 0/100 [00:00<?, ?it/s]D:\involuntary\works\classes\ANN\HW1\codes\loss.py:38: RuntimeWarning: divide by zero encountered in log
+20:30:39.535 Training @ 0 epoch...
+  ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+20:30:39.796      Training iter 50, batch loss 0.1235, batch acc 0.1056
+20:30:40.067      Training iter 100, batch loss 0.1431, batch acc 0.1022
+20:30:40.315      Training iter 150, batch loss 0.1423, batch acc 0.1016
+20:30:40.565      Training iter 200, batch loss 0.1429, batch acc 0.1022
+20:30:40.714      Training iter 250, batch loss 0.1412, batch acc 0.1062
+Training:   0%|                                                                                                           | 0/100 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 92, in <module>
+    processor(model, loss, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 73, in processor
+    iteration = train_net(mdl, los, config, train_data, train_label, config['batch_size'], config['disp_freq'])
+  File "D:\involuntary\works\classes\ANN\HW1\codes\solve_net.py", line 33, in train_net
+    model.backward(grad)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\network.py", line 21, in backward
+    grad_input = self.layer_list[i].backward(grad_input)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\layers.py", line 136, in backward
+    self.grad_b = np.sum(grad_output, axis=0, keepdims=True)
+  File "C:\Users\Fl0at9973\.conda\envs\mach\lib\site-packages\numpy\core\fromnumeric.py", line 2172, in _sum_dispatcher
+    def _sum_dispatcher(a, axis=None, dtype=None, out=None, keepdims=None,
+KeyboardInterrupt

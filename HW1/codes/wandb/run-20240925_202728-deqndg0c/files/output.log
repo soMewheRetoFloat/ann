@@ -1,0 +1,69 @@
+Training:   0%|                                                                                                           | 0/100 [00:00<?, ?it/s]D:\involuntary\works\classes\ANN\HW1\codes\loss.py:38: RuntimeWarning: divide by zero encountered in log
+20:27:29.810 Training @ 0 epoch...
+  ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+20:27:30.037      Training iter 50, batch loss 1.3556, batch acc 0.1168
+D:\involuntary\works\classes\ANN\HW1\codes\loss.py:38: RuntimeWarning: overflow encountered in divide
+  ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+D:\involuntary\works\classes\ANN\HW1\codes\loss.py:38: RuntimeWarning: divide by zero encountered in divide
+  ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+D:\involuntary\works\classes\ANN\HW1\codes\loss.py:38: RuntimeWarning: invalid value encountered in divide
+  ln_t_sub_h = np.where(target == 0, 1e-9, np.log(target / input_softmax))
+20:27:30.295      Training iter 100, batch loss inf, batch acc 0.1040
+20:27:30.582      Training iter 150, batch loss inf, batch acc 0.1020
+20:27:30.808      Training iter 200, batch loss inf, batch acc 0.0944
+20:27:31.003      Training iter 250, batch loss inf, batch acc 0.0980
+20:27:31.252      Training iter 300, batch loss inf, batch acc 0.0994
+20:27:31.495      Training iter 350, batch loss inf, batch acc 0.1058
+20:27:31.730      Training iter 400, batch loss inf, batch acc 0.1052
+20:27:31.985      Training iter 450, batch loss inf, batch acc 0.1062
+20:27:32.233      Training iter 500, batch loss inf, batch acc 0.0988
+20:27:32.487      Training iter 550, batch loss inf, batch acc 0.1028
+20:27:32.736      Training iter 600, batch loss inf, batch acc 0.1040
+20:27:32.737 Testing @ 0 epoch...
+20:27:32.881      Testing, total mean loss inf, total acc 0.08920
+Training:   3%|██▉                                                                                                | 3/100 [00:09<05:04,  3.14s/it]
+20:27:32.883 Training @ 1 epoch...
+20:27:33.126      Training iter 50, batch loss inf, batch acc 0.0934
+20:27:33.394      Training iter 100, batch loss inf, batch acc 0.0984
+20:27:33.612      Training iter 150, batch loss inf, batch acc 0.1038
+20:27:33.865      Training iter 200, batch loss inf, batch acc 0.0968
+20:27:34.128      Training iter 250, batch loss inf, batch acc 0.0948
+20:27:34.396      Training iter 300, batch loss inf, batch acc 0.1014
+20:27:34.669      Training iter 350, batch loss inf, batch acc 0.1084
+20:27:34.948      Training iter 400, batch loss inf, batch acc 0.0998
+20:27:35.218      Training iter 450, batch loss inf, batch acc 0.1096
+20:27:35.485      Training iter 500, batch loss inf, batch acc 0.1010
+20:27:35.751      Training iter 550, batch loss inf, batch acc 0.1028
+20:27:36.027      Training iter 600, batch loss inf, batch acc 0.0984
+20:27:36.029 Testing @ 1 epoch...
+20:27:36.215      Testing, total mean loss 2.36913, total acc 0.10100
+20:27:36.216 Training @ 2 epoch...
+20:27:36.483      Training iter 50, batch loss inf, batch acc 0.1006
+20:27:36.738      Training iter 100, batch loss inf, batch acc 0.0922
+20:27:37.002      Training iter 150, batch loss inf, batch acc 0.1032
+20:27:37.262      Training iter 200, batch loss inf, batch acc 0.0998
+20:27:37.402      Training iter 250, batch loss inf, batch acc 0.1020
+20:27:37.530      Training iter 300, batch loss inf, batch acc 0.0950
+20:27:37.745      Training iter 350, batch loss inf, batch acc 0.1028
+20:27:38.026      Training iter 400, batch loss inf, batch acc 0.1050
+20:27:38.287      Training iter 450, batch loss inf, batch acc 0.1014
+20:27:38.491      Training iter 500, batch loss inf, batch acc 0.0964
+20:27:38.700      Training iter 550, batch loss inf, batch acc 0.0968
+20:27:38.919      Training iter 600, batch loss inf, batch acc 0.1016
+20:27:38.922 Testing @ 2 epoch...
+20:27:39.077      Testing, total mean loss inf, total acc 0.10320
+20:27:39.078 Training @ 3 epoch...
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 92, in <module>
+    processor(model, loss, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 73, in processor
+    iteration = train_net(mdl, los, config, train_data, train_label, config['batch_size'], config['disp_freq'])
+  File "D:\involuntary\works\classes\ANN\HW1\codes\solve_net.py", line 33, in train_net
+    model.backward(grad)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\network.py", line 21, in backward
+    grad_input = self.layer_list[i].backward(grad_input)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\layers.py", line 136, in backward
+    self.grad_b = np.sum(grad_output, axis=0, keepdims=True)
+  File "C:\Users\Fl0at9973\.conda\envs\mach\lib\site-packages\numpy\core\fromnumeric.py", line 2172, in _sum_dispatcher
+    def _sum_dispatcher(a, axis=None, dtype=None, out=None, keepdims=None,
+KeyboardInterrupt

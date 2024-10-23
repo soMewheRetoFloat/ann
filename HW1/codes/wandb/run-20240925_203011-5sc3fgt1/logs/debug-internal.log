@@ -1,0 +1,21 @@
+{"time":"2024-09-25T20:30:11.4039797+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T20:30:11.4039797+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_203011-5sc3fgt1\\logs\\debug-core.log"}
+{"time":"2024-09-25T20:30:11.4045387+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T20:30:11.4045387+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_203011-5sc3fgt1\\logs\\debug-core.log"}
+{"time":"2024-09-25T20:30:11.4185544+08:00","level":"INFO","msg":"created new stream","id":"5sc3fgt1"}
+{"time":"2024-09-25T20:30:11.4187432+08:00","level":"INFO","msg":"stream: started","id":"5sc3fgt1"}
+{"time":"2024-09-25T20:30:11.4187432+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:11.4187432+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:11.4187432+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:12.4259372+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T20:30:12.4285834+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T20:30:16.737898+08:00","level":"INFO","msg":"stream: closing","id":"5sc3fgt1"}
+{"time":"2024-09-25T20:30:16.737898+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T20:30:16.737898+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T20:30:17.1560491+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T20:30:17.1560491+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T20:30:17.1560491+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T20:30:19.3434065+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:19.3434065+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:19.3434065+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"5sc3fgt1"}}
+{"time":"2024-09-25T20:30:19.3442873+08:00","level":"INFO","msg":"stream: closed","id":"5sc3fgt1"}

@@ -1,0 +1,21 @@
+{"time":"2024-09-25T22:40:19.1688756+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T22:40:19.1688756+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_224019-ucvgfiea\\logs\\debug-core.log"}
+{"time":"2024-09-25T22:40:19.1694921+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T22:40:19.1694921+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_224019-ucvgfiea\\logs\\debug-core.log"}
+{"time":"2024-09-25T22:40:19.1841257+08:00","level":"INFO","msg":"created new stream","id":"ucvgfiea"}
+{"time":"2024-09-25T22:40:19.1841257+08:00","level":"INFO","msg":"stream: started","id":"ucvgfiea"}
+{"time":"2024-09-25T22:40:19.1841257+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:19.1841257+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:19.1846548+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:20.191802+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T22:40:20.1959761+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T22:40:50.3541128+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T22:40:50.3548097+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T22:40:51.1691715+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T22:40:51.1691715+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T22:40:51.1691715+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T22:40:54.1780588+08:00","level":"INFO","msg":"stream: closing","id":"ucvgfiea"}
+{"time":"2024-09-25T22:40:54.1780588+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:54.1780588+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:54.1780588+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"ucvgfiea"}}
+{"time":"2024-09-25T22:40:54.1780588+08:00","level":"INFO","msg":"stream: closed","id":"ucvgfiea"}

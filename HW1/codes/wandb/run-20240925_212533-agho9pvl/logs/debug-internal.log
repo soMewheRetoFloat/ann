@@ -1,0 +1,21 @@
+{"time":"2024-09-25T21:25:33.0461432+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:25:33.0461432+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212533-agho9pvl\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:25:33.0473417+08:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-25T21:25:33.0473417+08:00","level":"INFO","msg":"created symlink","path":"D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\wandb\\run-20240925_212533-agho9pvl\\logs\\debug-core.log"}
+{"time":"2024-09-25T21:25:33.082849+08:00","level":"INFO","msg":"created new stream","id":"agho9pvl"}
+{"time":"2024-09-25T21:25:33.082849+08:00","level":"INFO","msg":"stream: started","id":"agho9pvl"}
+{"time":"2024-09-25T21:25:33.082849+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:25:33.082849+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:25:33.082849+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:25:34.0371975+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-25T21:25:34.0411376+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-25T21:26:31.5802999+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-25T21:26:31.5802999+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-25T21:26:32.5008235+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-09-25T21:26:32.5008235+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-09-25T21:26:32.5008235+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-09-25T21:26:36.5025104+08:00","level":"INFO","msg":"stream: closing","id":"agho9pvl"}
+{"time":"2024-09-25T21:26:36.5025104+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:26:36.5025104+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:26:36.5025104+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"agho9pvl"}}
+{"time":"2024-09-25T21:26:36.502936+08:00","level":"INFO","msg":"stream: closed","id":"agho9pvl"}

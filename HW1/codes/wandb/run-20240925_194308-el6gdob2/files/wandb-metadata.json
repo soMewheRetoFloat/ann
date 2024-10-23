@@ -1,0 +1,28 @@
+{
+  "os": "Windows-10-10.0.22631-SP0",
+  "python": "3.10.14",
+  "startedAt": "2024-09-25T11:43:08.989235Z",
+  "program": "D:\\involuntary\\works\\classes\\ANN\\HW1\\codes\\run_mlp.py",
+  "codePath": "run_mlp.py",
+  "email": "zihangzhan2003@gmail.com",
+  "root": "D:\\involuntary\\works\\classes\\ANN\\HW1\\codes",
+  "host": "Fl0at9973",
+  "username": "Fl0at9973",
+  "executable": "C:\\Users\\Fl0at9973\\.conda\\envs\\mach\\python.exe",
+  "codePathLocal": "run_mlp.py",
+  "cpu_count": 14,
+  "cpu_count_logical": 20,
+  "disk": {
+    "/": {
+      "total": "982527455232",
+      "used": "716476243968"
+    }
+  },
+  "memory": {
+    "total": "34029162496"
+  },
+  "cpu": {
+    "count": 14,
+    "countLogical": 20
+  }
+}

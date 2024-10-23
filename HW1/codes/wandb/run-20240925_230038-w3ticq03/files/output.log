@@ -1,0 +1,13 @@
+Training:   0%|                                                                                                                                                                                                                                     | 0/20 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 110, in <module>
+    processor(modelx, lossx, tr_data, te_data, tr_label, te_label, train_config)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\run_mlp.py", line 56, in processor
+    iteration = train_net(mdl, los, config, train_data, train_label, config['batch_size'], config['disp_freq'])
+  File "D:\involuntary\works\classes\ANN\HW1\codes\solve_net.py", line 33, in train_net
+    model.backward(grad)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\network.py", line 21, in backward
+    grad_input = self.layer_list[i].backward(grad_input)
+  File "D:\involuntary\works\classes\ANN\HW1\codes\layers.py", line 104, in backward
+    ret = grad_output * (1 - np.tanh(saved_input) ** 2)
+ValueError: operands could not be broadcast together with shapes (100,256) (100,128)

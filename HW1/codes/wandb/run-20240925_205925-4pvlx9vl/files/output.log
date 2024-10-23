@@ -1,0 +1,11 @@
+tanh CrossEntropy
+tanh Hinge
+tanh Focal
+SeLu KLDiv
+SeLu CrossEntropy
+SeLu Hinge
+SeLu Focal
+HardSwish KLDiv
+HardSwish CrossEntropy
+HardSwish Hinge
+HardSwish Focal
